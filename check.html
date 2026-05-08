@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rfidpay — Verificador de Compatibilidad</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0F172A;
+      color: #F1F5F9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #F1F5F9;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .logo span {
+      color: #3B82F6;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #64748B;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 32px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #94A3B8;
+      text-align: center;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #0F172A;
+      border-radius: 12px;
+      border: 1px solid #1E293B;
+    }
+
+    .check-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .icon-pending { background: #1E293B; }
+    .icon-ok      { background: #14532D; }
+    .icon-warn    { background: #713F12; }
+    .icon-fail    { background: #7F1D1D; }
+
+    .check-info { flex: 1; }
+
+    .check-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #CBD5E1;
+    }
+
+    .check-detail {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .check-detail.ok   { color: #4ADE80; }
+    .check-detail.warn { color: #FCD34D; }
+    .check-detail.fail { color: #F87171; }
+
+    .result-box {
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .result-box.show { display: block; }
+
+    .result-box.ok {
+      background: #14532D;
+      border: 1px solid #16A34A;
+    }
+
+    .result-box.warn {
+      background: #713F12;
+      border: 1px solid #D97706;
+    }
+
+    .result-box.fail {
+      background: #7F1D1D;
+      border: 1px solid #DC2626;
+    }
+
+    .result-emoji {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .result-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .result-box.ok   .result-title { color: #DCFCE7; }
+    .result-box.warn .result-title { color: #FEF3C7; }
+    .result-box.fail .result-title { color: #FEE2E2; }
+
+    .result-desc {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .result-box.ok   .result-desc { color: #BBF7D0; }
+    .result-box.warn .result-desc { color: #FDE68A; }
+    .result-box.fail .result-desc { color: #FECACA; }
+
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #3B82F6;
+      color: #fff;
+      transition: background 0.15s;
+    }
+
+    .btn:hover { background: #2563EB; }
+
+    .btn.secondary {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #94A3B8;
+      margin-top: 10px;
+    }
+
+    .btn.secondary:hover { background: #334155; }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: #334155;
+      text-align: center;
+    }
+
+    .scanning {
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+      color: #64748B;
+    }
+
+    .dot {
+      display: inline-block;
+      animation: blink 1.2s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.2; }
+      40% { opacity: 1; }
+    }
+
+    @media (max-width: 420px) {
+      .card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">rfid<span>pay</span></div>
+  <p class="tagline">Verificador de compatibilidad de dispositivo</p>
+
+  <div class="card">
+    <p class="card-title">Analizando tu dispositivo</p>
+
+    <div class="check-list">
+      <div class="check-item" id="item-os">
+        <div class="check-icon icon-pending" id="icon-os">⏳</div>
+        <div class="check-info">
+          <div class="check-label">Sistema operativo</div>
+          <div class="check-detail" id="detail-os">Detectando...</div>
+        </div>
+      </div>
+
+      <div class="check-item" id="item-browser">
+        <div class="check-icon icon-pending" id="icon-browser">⏳</div>
+        <div class="check-info">
+          <div class="check-label">Navegador</div>
+          <div class="check-detail" id="detail-browser">Detectando...</div>
+        </div>
+      </div>
+
+      <div class="check-item" id="item-nfc">
+        <div class="check-icon icon-pending" id="icon-nfc">⏳</div>
+        <div class="check-info">
+          <div class="check-label">NFC / RFID</div>
+          <div class="check-detail" id="detail-nfc">Detectando...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scanning" id="scanning-msg">
+      Analizando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-emoji" id="result-emoji"></div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-desc" id="result-desc"></div>
+    </div>
+
+    <button class="btn" id="btn-retry" style="display:none;" onclick="runCheck()">
+      Verificar de nuevo
+    </button>
+
+    <button class="btn secondary" id="btn-share" style="display:none;" onclick="shareResult()">
+      Compartir resultado
+    </button>
+  </div>
+
+  <p class="footer">rfidpay &copy; 2026 &nbsp;·&nbsp; Sistema de pagos RFID para eventos</p>
+
+  <script>
+    function getOS() {
+      const ua = navigator.userAgent;
+      if (/android/i.test(ua)) return { name: 'Android', ok: true };
+      if (/iphone|ipad|ipod/i.test(ua)) return { name: 'iOS', ok: false };
+      if (/windows/i.test(ua)) return { name: 'Windows', ok: false };
+      if (/macintosh|mac os/i.test(ua)) return { name: 'macOS', ok: false };
+      if (/linux/i.test(ua)) return { name: 'Linux', ok: false };
+      return { name: 'Desconocido', ok: false };
+    }
+
+    function getBrowser() {
+      const ua = navigator.userAgent;
+      const isChrome = /chrome|chromium|crios/i.test(ua) && !/edg|opr|brave/i.test(ua);
+      const isEdge = /edg/i.test(ua);
+      const isFirefox = /firefox/i.test(ua);
+      const isSafari = /safari/i.test(ua) && !/chrome/i.test(ua);
+      const isOpera = /opr/i.test(ua);
+      const isBrave = /brave/i.test(ua);
+      const isSamsungBrowser = /samsungbrowser/i.test(ua);
+
+      if (isChrome) return { name: 'Google Chrome', ok: true };
+      if (isEdge) return { name: 'Microsoft Edge', ok: false };
+      if (isFirefox) return { name: 'Firefox', ok: false };
+      if (isSafari) return { name: 'Safari', ok: false };
+      if (isOpera) return { name: 'Opera', ok: false };
+      if (isBrave) return { name: 'Brave', ok: false };
+      if (isSamsungBrowser) return { name: 'Samsung Internet', ok: false };
+      return { name: 'Otro navegador', ok: false };
+    }
+
+    function setItem(id, status, detail) {
+      const icon = document.getElementById('icon-' + id);
+      const detailEl = document.getElementById('detail-' + id);
+
+      icon.className = 'check-icon icon-' + status;
+      detailEl.className = 'check-detail ' + status;
+
+      if (status === 'ok')   { icon.textContent = '✅'; }
+      if (status === 'warn') { icon.textContent = '⚠️'; }
+      if (status === 'fail') { icon.textContent = '❌'; }
+
+      detailEl.textContent = detail;
+    }
+
+    function showResult(type, emoji, title, desc) {
+      document.getElementById('scanning-msg').style.display = 'none';
+      const box = document.getElementById('result-box');
+      box.className = 'result-box show ' + type;
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-desc').textContent = desc;
+      document.getElementById('btn-retry').style.display = 'block';
+      document.getElementById('btn-share').style.display = 'block';
+    }
+
+    async function runCheck() {
+      document.getElementById('scanning-msg').style.display = 'block';
+      document.getElementById('result-box').className = 'result-box';
+      document.getElementById('btn-retry').style.display = 'none';
+      document.getElementById('btn-share').style.display = 'none';
+
+      ['os','browser','nfc'].forEach(id => {
+        document.getElementById('icon-' + id).className = 'check-icon icon-pending';
+        document.getElementById('icon-' + id).textContent = '⏳';
+        document.getElementById('detail-' + id).textContent = 'Detectando...';
+        document.getElementById('detail-' + id).className = 'check-detail';
+      });
+
+      await delay(400);
+
+      const os = getOS();
+      setItem('os', os.ok ? 'ok' : 'fail', os.name);
+
+      await delay(400);
+
+      const browser = getBrowser();
+      setItem('browser', browser.ok ? 'ok' : 'warn', browser.name);
+
+      await delay(500);
+
+      const hasNfcApi = 'NDEFReader' in window;
+
+      if (!os.ok) {
+        setItem('nfc', 'fail', 'No disponible en ' + os.name);
+        showResult(
+          'fail',
+          '❌',
+          'Dispositivo no compatible',
+          os.name === 'iOS'
+            ? 'iOS no permite el uso de NFC desde el navegador. Necesitas un dispositivo Android con Chrome para operar rfidpay.'
+            : 'Este dispositivo no es compatible para operar rfidpay. Se requiere un teléfono Android con NFC y Google Chrome.'
+        );
+        return;
+      }
+
+      if (!browser.ok) {
+        setItem('nfc', 'warn', 'Requiere Chrome para verificar');
+        showResult(
+          'warn',
+          '⚠️',
+          'Necesitas abrir esto en Chrome',
+          'Tu dispositivo Android puede ser compatible, pero debes abrir esta página en Google Chrome para que rfidpay funcione correctamente. Descarga Chrome e intenta de nuevo.'
+        );
+        return;
+      }
+
+      if (hasNfcApi) {
+        try {
+          const ndef = new NDEFReader();
+          await ndef.scan();
+          setItem('nfc', 'ok', 'NFC detectado y activo');
+          showResult(
+            'ok',
+            '✅',
+            '¡Tu dispositivo es compatible!',
+            'Android detectado, Chrome activo y NFC disponible. Este dispositivo está listo para operar con rfidpay.'
+          );
+        } catch (e) {
+          if (e.name === 'NotAllowedError') {
+            setItem('nfc', 'warn', 'NFC disponible — permiso requerido');
+            showResult(
+              'warn',
+              '⚠️',
+              'Permite el acceso a NFC',
+              'Tu dispositivo tiene NFC pero necesitas dar permiso cuando el sistema te lo solicite al iniciar sesión en rfidpay.'
+            );
+          } else if (e.name === 'NotSupportedError') {
+            setItem('nfc', 'fail', 'NFC no disponible en este dispositivo');
+            showResult(
+              'fail',
+              '❌',
+              'Este dispositivo no tiene NFC',
+              'Tu teléfono Android no cuenta con chip NFC. Para operar rfidpay necesitas un dispositivo Android con NFC habilitado, como un Samsung Galaxy A o superior, o cualquier Pixel de Google.'
+            );
+          } else {
+            setItem('nfc', 'warn', 'NFC presente — verificar en el evento');
+            showResult(
+              'warn',
+              '⚠️',
+              'Verificación parcial',
+              'El dispositivo parece tener NFC pero no fue posible confirmarlo completamente desde el navegador. Haz una prueba de lectura con el equipo antes del evento.'
+            );
+          }
+        }
+      } else {
+        setItem('nfc', 'fail', 'NFC no soportado por el navegador');
+        showResult(
+          'fail',
+          '❌',
+          'Dispositivo no compatible',
+          'Este dispositivo no soporta NFC desde el navegador. Se requiere Android con Google Chrome versión 89 o superior y chip NFC habilitado.'
+        );
+      }
+    }
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function shareResult() {
+      const title = document.getElementById('result-title').textContent;
+      const text = 'rfidpay — Verificador de compatibilidad: ' + title;
+      if (navigator.share) {
+        navigator.share({ title: 'rfidpay', text, url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('Link copiado al portapapeles');
+        });
+      }
+    }
+
+    runCheck();
+  </script>
+</body>
+</html>
