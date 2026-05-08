@@ -22,68 +22,68 @@
     .logo {
       font-size: 28px;
       font-weight: 700;
-      letter-spacing: -0.5px;
       color: #F1F5F9;
-      margin-bottom: 8px;
       text-align: center;
+      margin-bottom: 6px;
     }
-
-    .logo span {
-      color: #3B82F6;
-    }
+    .logo span { color: #3B82F6; }
 
     .tagline {
-      font-size: 14px;
+      font-size: 13px;
       color: #64748B;
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
     .card {
       background: #1E293B;
       border: 1px solid #334155;
       border-radius: 20px;
-      padding: 32px;
+      padding: 28px 24px;
       width: 100%;
       max-width: 400px;
     }
 
     .card-title {
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 600;
-      color: #94A3B8;
+      color: #64748B;
       text-align: center;
-      margin-bottom: 28px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-bottom: 20px;
     }
 
     .check-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
     .check-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
+      gap: 12px;
+      padding: 12px 14px;
       background: #0F172A;
       border-radius: 12px;
       border: 1px solid #1E293B;
+      transition: border-color 0.3s;
     }
 
+    .check-item.active { border-color: #3B82F6; }
+
     .check-icon {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 16px;
       flex-shrink: 0;
-      font-size: 18px;
+      transition: background 0.3s;
     }
 
     .icon-pending { background: #1E293B; }
@@ -92,115 +92,103 @@
     .icon-fail    { background: #7F1D1D; }
 
     .check-info { flex: 1; }
-
-    .check-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #CBD5E1;
-    }
-
-    .check-detail {
-      font-size: 12px;
-      color: #64748B;
-      margin-top: 2px;
-    }
-
+    .check-label { font-size: 13px; font-weight: 500; color: #CBD5E1; }
+    .check-detail { font-size: 11px; color: #64748B; margin-top: 2px; transition: color 0.3s; }
     .check-detail.ok   { color: #4ADE80; }
     .check-detail.warn { color: #FCD34D; }
     .check-detail.fail { color: #F87171; }
 
-    .result-box {
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
+    /* NFC Test Section */
+    .nfc-section {
       display: none;
+      margin-top: 4px;
+    }
+    .nfc-section.show { display: block; }
+
+    .nfc-divider {
+      height: 1px;
+      background: #334155;
+      margin: 16px 0;
     }
 
-    .result-box.show { display: block; }
-
-    .result-box.ok {
-      background: #14532D;
-      border: 1px solid #16A34A;
+    .nfc-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      text-align: center;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
 
-    .result-box.warn {
-      background: #713F12;
-      border: 1px solid #D97706;
+    .nfc-prompt {
+      background: #0F172A;
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      border: 1px solid #1E293B;
     }
 
-    .result-box.fail {
-      background: #7F1D1D;
-      border: 1px solid #DC2626;
-    }
-
-    .result-emoji {
+    .nfc-prompt-icon {
       font-size: 36px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .result-title {
-      font-size: 17px;
-      font-weight: 700;
+    .nfc-prompt-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #CBD5E1;
       margin-bottom: 6px;
     }
 
-    .result-box.ok   .result-title { color: #DCFCE7; }
-    .result-box.warn .result-title { color: #FEF3C7; }
-    .result-box.fail .result-title { color: #FEE2E2; }
-
-    .result-desc {
-      font-size: 13px;
+    .nfc-prompt-desc {
+      font-size: 12px;
+      color: #64748B;
       line-height: 1.5;
     }
 
-    .result-box.ok   .result-desc { color: #BBF7D0; }
-    .result-box.warn .result-desc { color: #FDE68A; }
-    .result-box.fail .result-desc { color: #FECACA; }
+    /* Scanning animation */
+    .nfc-scanning {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .nfc-scanning.show { display: block; }
 
-    .btn {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      background: #3B82F6;
-      color: #fff;
-      transition: background 0.15s;
+    .pulse-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid #3B82F6;
+      margin: 0 auto 14px;
+      animation: pulse-ring 1.4s ease-out infinite;
     }
 
-    .btn:hover { background: #2563EB; }
+    @keyframes pulse-ring {
+      0%   { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
 
-    .btn.secondary {
-      background: #1E293B;
-      border: 1px solid #334155;
+    .scanning-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #1E3A5F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: -78px auto 14px;
+      position: relative;
+    }
+
+    .scanning-text {
+      font-size: 13px;
       color: #94A3B8;
-      margin-top: 10px;
     }
 
-    .btn.secondary:hover { background: #334155; }
-
-    .footer {
-      margin-top: 32px;
-      font-size: 12px;
-      color: #334155;
-      text-align: center;
-    }
-
-    .scanning {
-      text-align: center;
-      padding: 12px 0;
-      font-size: 14px;
-      color: #64748B;
-    }
-
-    .dot {
-      display: inline-block;
-      animation: blink 1.2s infinite;
-    }
+    .dot { display: inline-block; animation: blink 1.2s infinite; }
     .dot:nth-child(2) { animation-delay: 0.2s; }
     .dot:nth-child(3) { animation-delay: 0.4s; }
 
@@ -209,9 +197,96 @@
       40% { opacity: 1; }
     }
 
-    @media (max-width: 420px) {
-      .card { padding: 24px 20px; }
+    /* Result box */
+    .result-box {
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      display: none;
+      margin-bottom: 4px;
     }
+    .result-box.show  { display: block; }
+    .result-box.ok    { background: #14532D; border: 1px solid #16A34A; }
+    .result-box.warn  { background: #713F12; border: 1px solid #D97706; }
+    .result-box.fail  { background: #7F1D1D; border: 1px solid #DC2626; }
+
+    .result-emoji  { font-size: 32px; margin-bottom: 8px; }
+    .result-title  { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .result-box.ok   .result-title { color: #DCFCE7; }
+    .result-box.warn .result-title { color: #FEF3C7; }
+    .result-box.fail .result-title { color: #FEE2E2; }
+
+    .result-desc { font-size: 12px; line-height: 1.6; }
+    .result-box.ok   .result-desc { color: #BBF7D0; }
+    .result-box.warn .result-desc { color: #FDE68A; }
+    .result-box.fail .result-desc { color: #FECACA; }
+
+    /* Buttons */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: #3B82F6;
+      color: #fff;
+      margin-top: 16px;
+    }
+    .btn-primary:hover { background: #2563EB; }
+
+    .btn-secondary {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #94A3B8;
+      margin-top: 10px;
+    }
+    .btn-secondary:hover { background: #334155; }
+
+    .btn-nfc {
+      background: linear-gradient(135deg, #1D4ED8, #3B82F6);
+      color: #fff;
+      margin-top: 0;
+      padding: 16px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-nfc:hover { background: linear-gradient(135deg, #1E40AF, #2563EB); }
+
+    .footer {
+      margin-top: 28px;
+      font-size: 11px;
+      color: #1E293B;
+      text-align: center;
+    }
+
+    /* Steps indicator */
+    .steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1E293B;
+      transition: background 0.3s;
+    }
+    .step-dot.active { background: #3B82F6; }
+    .step-dot.done   { background: #16A34A; }
   </style>
 </head>
 <body>
@@ -220,9 +295,16 @@
   <p class="tagline">Verificador de compatibilidad de dispositivo</p>
 
   <div class="card">
-    <p class="card-title">Analizando tu dispositivo</p>
+    <div class="steps">
+      <div class="step-dot active" id="step1"></div>
+      <div class="step-dot" id="step2"></div>
+      <div class="step-dot" id="step3"></div>
+    </div>
 
-    <div class="check-list">
+    <p class="card-title" id="card-title">Verificando sistema</p>
+
+    <!-- PHASE 1: OS + Browser checks -->
+    <div class="check-list" id="phase1">
       <div class="check-item" id="item-os">
         <div class="check-icon icon-pending" id="icon-os">⏳</div>
         <div class="check-info">
@@ -230,7 +312,6 @@
           <div class="check-detail" id="detail-os">Detectando...</div>
         </div>
       </div>
-
       <div class="check-item" id="item-browser">
         <div class="check-icon icon-pending" id="icon-browser">⏳</div>
         <div class="check-info">
@@ -238,31 +319,59 @@
           <div class="check-detail" id="detail-browser">Detectando...</div>
         </div>
       </div>
-
-      <div class="check-item" id="item-nfc">
-        <div class="check-icon icon-pending" id="icon-nfc">⏳</div>
+      <div class="check-item" id="item-api">
+        <div class="check-icon icon-pending" id="icon-api">⏳</div>
         <div class="check-info">
-          <div class="check-label">NFC / RFID</div>
-          <div class="check-detail" id="detail-nfc">Detectando...</div>
+          <div class="check-label">API de NFC</div>
+          <div class="check-detail" id="detail-api">Detectando...</div>
         </div>
       </div>
     </div>
 
-    <div class="scanning" id="scanning-msg">
-      Analizando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+    <!-- PHASE 2: Active NFC test -->
+    <div class="nfc-section" id="phase2">
+      <div class="nfc-divider"></div>
+      <p class="nfc-label">Prueba en vivo</p>
+
+      <div class="nfc-prompt" id="nfc-prompt">
+        <div class="nfc-prompt-icon">📡</div>
+        <div class="nfc-prompt-title">Probar NFC ahora</div>
+        <div class="nfc-prompt-desc">
+          Toca el botón para que el sistema solicite acceso al NFC de tu dispositivo.
+          Esta es la prueba definitiva de compatibilidad.
+        </div>
+      </div>
+
+      <div class="nfc-scanning" id="nfc-scanning">
+        <div class="pulse-ring"></div>
+        <div class="scanning-icon">📡</div>
+        <div class="scanning-text">
+          Solicitando acceso al NFC<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </div>
+      </div>
+
+      <div class="result-box" id="result-box">
+        <div class="result-emoji" id="result-emoji"></div>
+        <div class="result-title" id="result-title"></div>
+        <div class="result-desc"  id="result-desc"></div>
+      </div>
+
+      <button class="btn btn-nfc" id="btn-nfc" onclick="testNFC()">
+        <span>📡</span> Activar prueba de NFC
+      </button>
     </div>
 
-    <div class="result-box" id="result-box">
-      <div class="result-emoji" id="result-emoji"></div>
-      <div class="result-title" id="result-title"></div>
-      <div class="result-desc" id="result-desc"></div>
+    <!-- Final result for failed phase 1 -->
+    <div class="result-box" id="result-fail">
+      <div class="result-emoji" id="fail-emoji"></div>
+      <div class="result-title" id="fail-title"></div>
+      <div class="result-desc"  id="fail-desc"></div>
     </div>
 
-    <button class="btn" id="btn-retry" style="display:none;" onclick="runCheck()">
+    <button class="btn btn-primary" id="btn-retry" style="display:none" onclick="restart()">
       Verificar de nuevo
     </button>
-
-    <button class="btn secondary" id="btn-share" style="display:none;" onclick="shareResult()">
+    <button class="btn btn-secondary" id="btn-share" style="display:none" onclick="shareResult()">
       Compartir resultado
     </button>
   </div>
@@ -270,170 +379,228 @@
   <p class="footer">rfidpay &copy; 2026 &nbsp;·&nbsp; Sistema de pagos RFID para eventos</p>
 
   <script>
+    let nfcReader = null;
+
+    function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    function setStep(n) {
+      [1,2,3].forEach(i => {
+        const el = document.getElementById('step' + i);
+        if (i < n)  { el.className = 'step-dot done'; }
+        else if (i === n) { el.className = 'step-dot active'; }
+        else { el.className = 'step-dot'; }
+      });
+    }
+
+    function setCheck(id, status, detail) {
+      const icon   = document.getElementById('icon-' + id);
+      const detEl  = document.getElementById('detail-' + id);
+      const itemEl = document.getElementById('item-' + id);
+
+      icon.className = 'check-icon icon-' + status;
+      detEl.className = 'check-detail ' + status;
+
+      const emojis = { ok: '✅', warn: '⚠️', fail: '❌' };
+      icon.textContent = emojis[status] || '⏳';
+      detEl.textContent = detail;
+
+      if (status === 'ok') itemEl.classList.remove('active');
+    }
+
+    function showFail(emoji, title, desc) {
+      const box = document.getElementById('result-fail');
+      box.className = 'result-box show fail';
+      document.getElementById('fail-emoji').textContent = emoji;
+      document.getElementById('fail-title').textContent = title;
+      document.getElementById('fail-desc').textContent  = desc;
+      document.getElementById('btn-retry').style.display = 'block';
+      document.getElementById('btn-share').style.display = 'block';
+    }
+
+    function showNFCResult(type, emoji, title, desc) {
+      document.getElementById('nfc-scanning').classList.remove('show');
+      document.getElementById('btn-nfc').style.display = 'none';
+      document.getElementById('nfc-prompt').style.display = 'none';
+
+      const box = document.getElementById('result-box');
+      box.className = 'result-box show ' + type;
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-desc').textContent  = desc;
+
+      document.getElementById('btn-retry').style.display = 'block';
+      document.getElementById('btn-share').style.display = 'block';
+      setStep(3);
+    }
+
     function getOS() {
       const ua = navigator.userAgent;
       if (/android/i.test(ua)) return { name: 'Android', ok: true };
       if (/iphone|ipad|ipod/i.test(ua)) return { name: 'iOS', ok: false };
       if (/windows/i.test(ua)) return { name: 'Windows', ok: false };
-      if (/macintosh|mac os/i.test(ua)) return { name: 'macOS', ok: false };
-      if (/linux/i.test(ua)) return { name: 'Linux', ok: false };
+      if (/macintosh/i.test(ua)) return { name: 'macOS', ok: false };
       return { name: 'Desconocido', ok: false };
     }
 
     function getBrowser() {
       const ua = navigator.userAgent;
-      const isChrome = /chrome|chromium|crios/i.test(ua) && !/edg|opr|brave/i.test(ua);
-      const isEdge = /edg/i.test(ua);
-      const isFirefox = /firefox/i.test(ua);
-      const isSafari = /safari/i.test(ua) && !/chrome/i.test(ua);
-      const isOpera = /opr/i.test(ua);
-      const isBrave = /brave/i.test(ua);
-      const isSamsungBrowser = /samsungbrowser/i.test(ua);
-
+      const isChrome = /chrome|chromium/i.test(ua) && !/edg|opr|brave|samsungbrowser/i.test(ua);
       if (isChrome) return { name: 'Google Chrome', ok: true };
-      if (isEdge) return { name: 'Microsoft Edge', ok: false };
-      if (isFirefox) return { name: 'Firefox', ok: false };
-      if (isSafari) return { name: 'Safari', ok: false };
-      if (isOpera) return { name: 'Opera', ok: false };
-      if (isBrave) return { name: 'Brave', ok: false };
-      if (isSamsungBrowser) return { name: 'Samsung Internet', ok: false };
+      if (/edg/i.test(ua))           return { name: 'Microsoft Edge', ok: false };
+      if (/firefox/i.test(ua))       return { name: 'Firefox', ok: false };
+      if (/samsungbrowser/i.test(ua)) return { name: 'Samsung Internet', ok: false };
+      if (/safari/i.test(ua) && !/chrome/i.test(ua)) return { name: 'Safari', ok: false };
       return { name: 'Otro navegador', ok: false };
     }
 
-    function setItem(id, status, detail) {
-      const icon = document.getElementById('icon-' + id);
-      const detailEl = document.getElementById('detail-' + id);
+    async function runPhase1() {
+      setStep(1);
+      document.getElementById('card-title').textContent = 'Verificando sistema';
 
-      icon.className = 'check-icon icon-' + status;
-      detailEl.className = 'check-detail ' + status;
+      await delay(500);
+      const os = getOS();
+      setCheck('os', os.ok ? 'ok' : 'fail', os.name);
 
-      if (status === 'ok')   { icon.textContent = '✅'; }
-      if (status === 'warn') { icon.textContent = '⚠️'; }
-      if (status === 'fail') { icon.textContent = '❌'; }
+      if (!os.ok) {
+        await delay(300);
+        setCheck('browser', 'fail', 'No aplica');
+        setCheck('api', 'fail', 'No aplica');
+        const msg = os.name === 'iOS'
+          ? 'iOS no permite el uso de NFC desde el navegador. Necesitas un teléfono Android con Google Chrome.'
+          : 'Se requiere un teléfono Android con Google Chrome y chip NFC habilitado.';
+        showFail('❌', 'Sistema operativo no compatible', msg);
+        return false;
+      }
 
-      detailEl.textContent = detail;
+      await delay(400);
+      const browser = getBrowser();
+      setCheck('browser', browser.ok ? 'ok' : 'fail', browser.name);
+
+      if (!browser.ok) {
+        await delay(300);
+        setCheck('api', 'fail', 'Requiere Chrome');
+        showFail('⚠️',
+          'Abre esto en Google Chrome',
+          'Tu dispositivo Android puede ser compatible, pero rfidpay requiere Google Chrome para acceder al NFC. Descarga Chrome e intenta de nuevo.'
+        );
+        document.getElementById('result-fail').className = 'result-box show warn';
+        return false;
+      }
+
+      await delay(400);
+      const hasApi = 'NDEFReader' in window;
+      if (hasApi) {
+        setCheck('api', 'ok', 'WebNFC disponible');
+      } else {
+        setCheck('api', 'fail', 'No soportado por este Chrome');
+        showFail('❌',
+          'Versión de Chrome no compatible',
+          'Tu versión de Chrome no soporta WebNFC. Actualiza Google Chrome a la versión 89 o superior e intenta de nuevo.'
+        );
+        return false;
+      }
+
+      return true;
     }
 
-    function showResult(type, emoji, title, desc) {
-      document.getElementById('scanning-msg').style.display = 'none';
-      const box = document.getElementById('result-box');
-      box.className = 'result-box show ' + type;
-      document.getElementById('result-emoji').textContent = emoji;
-      document.getElementById('result-title').textContent = title;
-      document.getElementById('result-desc').textContent = desc;
-      document.getElementById('btn-retry').style.display = 'block';
-      document.getElementById('btn-share').style.display = 'block';
+    async function testNFC() {
+      const btn = document.getElementById('btn-nfc');
+      btn.disabled = true;
+      btn.textContent = 'Solicitando permiso...';
+
+      document.getElementById('nfc-prompt').style.display = 'none';
+      document.getElementById('nfc-scanning').classList.add('show');
+      document.getElementById('card-title').textContent = 'Probando NFC';
+      setStep(3);
+
+      try {
+        nfcReader = new NDEFReader();
+
+        await nfcReader.scan();
+
+        showNFCResult('ok', '✅',
+          '¡NFC confirmado y activo!',
+          'El acceso al NFC fue concedido exitosamente. Este dispositivo está 100% listo para operar con rfidpay.'
+        );
+
+      } catch (e) {
+        if (e.name === 'NotAllowedError') {
+          showNFCResult('fail', '❌',
+            'Permiso de NFC denegado',
+            'El acceso al NFC fue bloqueado. Ve a Ajustes → Aplicaciones → Chrome → Permisos y activa NFC. Luego intenta de nuevo.'
+          );
+        } else if (e.name === 'NotSupportedError') {
+          showNFCResult('fail', '❌',
+            'Este dispositivo no tiene NFC',
+            'El hardware NFC no está disponible en este teléfono. Para operar rfidpay necesitas un dispositivo Android con chip NFC, como un Samsung Galaxy A32 o superior, o cualquier Google Pixel.'
+          );
+        } else if (e.name === 'NotReadableError') {
+          showNFCResult('warn', '⚠️',
+            'NFC ocupado por otra app',
+            'El NFC está siendo usado por otra aplicación. Cierra otras apps que usen NFC (como Google Pay) e intenta de nuevo.'
+          );
+        } else if (e.name === 'AbortError') {
+          showNFCResult('warn', '⚠️',
+            'Prueba cancelada',
+            'La prueba de NFC fue interrumpida. Toca "Verificar de nuevo" para intentarlo una vez más.'
+          );
+        } else {
+          showNFCResult('warn', '⚠️',
+            'No se pudo confirmar el NFC',
+            'Ocurrió un error inesperado al intentar activar el NFC. Asegúrate de que el NFC esté encendido en los ajustes de tu teléfono e intenta de nuevo.'
+          );
+        }
+      }
     }
 
     async function runCheck() {
-      document.getElementById('scanning-msg').style.display = 'block';
+      const phase1ok = await runPhase1();
+
+      if (phase1ok) {
+        await delay(400);
+        setStep(2);
+        document.getElementById('card-title').textContent = 'Prueba de NFC';
+        document.getElementById('phase2').classList.add('show');
+      }
+    }
+
+    function restart() {
+      document.getElementById('phase2').classList.remove('show');
+      document.getElementById('nfc-prompt').style.display = 'block';
+      document.getElementById('nfc-scanning').classList.remove('show');
       document.getElementById('result-box').className = 'result-box';
+      document.getElementById('result-fail').className = 'result-box';
       document.getElementById('btn-retry').style.display = 'none';
       document.getElementById('btn-share').style.display = 'none';
+      document.getElementById('btn-nfc').style.display = 'block';
+      document.getElementById('btn-nfc').disabled = false;
+      document.getElementById('btn-nfc').innerHTML = '<span>📡</span> Activar prueba de NFC';
 
-      ['os','browser','nfc'].forEach(id => {
+      ['os','browser','api'].forEach(id => {
         document.getElementById('icon-' + id).className = 'check-icon icon-pending';
         document.getElementById('icon-' + id).textContent = '⏳';
         document.getElementById('detail-' + id).textContent = 'Detectando...';
         document.getElementById('detail-' + id).className = 'check-detail';
+        document.getElementById('item-' + id).classList.remove('active');
       });
 
-      await delay(400);
-
-      const os = getOS();
-      setItem('os', os.ok ? 'ok' : 'fail', os.name);
-
-      await delay(400);
-
-      const browser = getBrowser();
-      setItem('browser', browser.ok ? 'ok' : 'warn', browser.name);
-
-      await delay(500);
-
-      const hasNfcApi = 'NDEFReader' in window;
-
-      if (!os.ok) {
-        setItem('nfc', 'fail', 'No disponible en ' + os.name);
-        showResult(
-          'fail',
-          '❌',
-          'Dispositivo no compatible',
-          os.name === 'iOS'
-            ? 'iOS no permite el uso de NFC desde el navegador. Necesitas un dispositivo Android con Chrome para operar rfidpay.'
-            : 'Este dispositivo no es compatible para operar rfidpay. Se requiere un teléfono Android con NFC y Google Chrome.'
-        );
-        return;
+      if (nfcReader) {
+        try { nfcReader.abort && nfcReader.abort(); } catch(e) {}
+        nfcReader = null;
       }
 
-      if (!browser.ok) {
-        setItem('nfc', 'warn', 'Requiere Chrome para verificar');
-        showResult(
-          'warn',
-          '⚠️',
-          'Necesitas abrir esto en Chrome',
-          'Tu dispositivo Android puede ser compatible, pero debes abrir esta página en Google Chrome para que rfidpay funcione correctamente. Descarga Chrome e intenta de nuevo.'
-        );
-        return;
-      }
-
-      if (hasNfcApi) {
-        try {
-          const ndef = new NDEFReader();
-          await ndef.scan();
-          setItem('nfc', 'ok', 'NFC detectado y activo');
-          showResult(
-            'ok',
-            '✅',
-            '¡Tu dispositivo es compatible!',
-            'Android detectado, Chrome activo y NFC disponible. Este dispositivo está listo para operar con rfidpay.'
-          );
-        } catch (e) {
-          if (e.name === 'NotAllowedError') {
-            setItem('nfc', 'warn', 'NFC disponible — permiso requerido');
-            showResult(
-              'warn',
-              '⚠️',
-              'Permite el acceso a NFC',
-              'Tu dispositivo tiene NFC pero necesitas dar permiso cuando el sistema te lo solicite al iniciar sesión en rfidpay.'
-            );
-          } else if (e.name === 'NotSupportedError') {
-            setItem('nfc', 'fail', 'NFC no disponible en este dispositivo');
-            showResult(
-              'fail',
-              '❌',
-              'Este dispositivo no tiene NFC',
-              'Tu teléfono Android no cuenta con chip NFC. Para operar rfidpay necesitas un dispositivo Android con NFC habilitado, como un Samsung Galaxy A o superior, o cualquier Pixel de Google.'
-            );
-          } else {
-            setItem('nfc', 'warn', 'NFC presente — verificar en el evento');
-            showResult(
-              'warn',
-              '⚠️',
-              'Verificación parcial',
-              'El dispositivo parece tener NFC pero no fue posible confirmarlo completamente desde el navegador. Haz una prueba de lectura con el equipo antes del evento.'
-            );
-          }
-        }
-      } else {
-        setItem('nfc', 'fail', 'NFC no soportado por el navegador');
-        showResult(
-          'fail',
-          '❌',
-          'Dispositivo no compatible',
-          'Este dispositivo no soporta NFC desde el navegador. Se requiere Android con Google Chrome versión 89 o superior y chip NFC habilitado.'
-        );
-      }
-    }
-
-    function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+      runCheck();
     }
 
     function shareResult() {
-      const title = document.getElementById('result-title').textContent;
-      const text = 'rfidpay — Verificador de compatibilidad: ' + title;
+      const title = document.getElementById('result-title').textContent ||
+                    document.getElementById('fail-title').textContent;
       if (navigator.share) {
-        navigator.share({ title: 'rfidpay', text, url: window.location.href });
+        navigator.share({
+          title: 'rfidpay — Verificador',
+          text: 'Resultado: ' + title,
+          url: window.location.href
+        });
       } else {
         navigator.clipboard.writeText(window.location.href).then(() => {
           alert('Link copiado al portapapeles');
